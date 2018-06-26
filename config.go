@@ -27,8 +27,8 @@ type AccessConf struct {
 
 // Prest basic config
 type Prest struct {
-	HTTPHost         string  // HTTPHost Declare which http address the PREST used
-	HTTPPort         int     // HTTPPort Declare which http port the PREST used
+	HTTPHost         string // HTTPHost Declare which http address the PREST used
+	HTTPPort         int    // HTTPPort Declare which http port the PREST used
 	PGHost           string
 	PGPort           int
 	PGUser           string
@@ -101,8 +101,11 @@ func viperCfg() {
 	if err != nil {
 		log.Println("{viperCfg}", err)
 	}
-
-	viper.SetDefault("queries.location", filepath.Join(user.HomeDir, "queries"))
+	baseDir := "./"
+	if user != nil {
+		baseDir = user.HomeDir
+	}
+	viper.SetDefault("queries.location", filepath.Join(baseDir, "queries"))
 }
 
 func getDefaultPrestConf(prestConf string) (cfg string) {
